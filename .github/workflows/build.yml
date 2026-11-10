@@ -10,9 +10,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Unzip project
+      - name: Extract ZIP archive
         run: |
-          unzip -o BlackLauncher-android-project.zip
+          # Распаковываем любой архив в текущей папке
+          unzip -q '*.zip'
           ls -la
 
       - name: Set up JDK 17
@@ -24,10 +25,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Find and Build APK
+      - name: Find project and build APK
         run: |
+          # Автоматически находим папку с gradle-обработчиком
           PROJECT_DIR=$(find . -name "gradlew" -maxdepth 3 | xargs dirname)
-          echo "Found project at: $PROJECT_DIR"
+          echo "Found project directory at: $PROJECT_DIR"
           cd "$PROJECT_DIR"
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
