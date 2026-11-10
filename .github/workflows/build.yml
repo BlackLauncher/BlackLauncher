@@ -12,7 +12,7 @@ jobs:
 
       - name: Unzip project
         run: |
-          unzip -o BlackLauncher.zip
+          unzip -o BlackLauncher-android-project.zip
           ls -la
 
       - name: Set up JDK 17
